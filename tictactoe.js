@@ -231,9 +231,12 @@ TicTacToe.DisplayController = function () {
             endMenu = document.getElementById("endGame");
             endMenu.style.display = 'block';
             againText = document.getElementById("againText");
+            againText.setAttribute('style', 'white-space: pre;');
             if (TicTacToe.GameController.winner()) {
-            againText.textContent = TicTacToe.GameController.winner().name + ' wins!';
-            } else
+            againText.textContent = TicTacToe.GameController.winner().name + ' wins! \r\n';
+            againText.textContent += player1.name + ":  Wins: " + player1.wins + "  Losses: " + player1.losses + "  Ties: " + player1.ties + "\r\n";
+            againText.textContent += player2.name + ":  Wins: " + player2.wins + "  Losses: " + player2.losses + "  Ties: " + player2.ties + "\r\n";
+        } else
             {againText.textContent = 'Tie!';
         };
         },
