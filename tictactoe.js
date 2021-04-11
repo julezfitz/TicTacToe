@@ -1,4 +1,3 @@
-
 const TicTacToe = {};
 
 TicTacToe.GameBoard = function (logger) {
@@ -25,43 +24,44 @@ TicTacToe.GameBoard = function (logger) {
             }
         },
         winner: function () {
-            if ((spaces[0][0] === spaces[0][1]) && (spaces[0][0] === spaces[0][2])) {
+            if (spaces[0][0] != '-' && (spaces[0][0] === spaces[0][1]) && (spaces[0][0] === spaces[0][2])) {
                 if (spaces[0][0] === "X") {
                     return "X";
                 } else if (spaces[0][0] === "O") {
                     return "O";
                 }
-            } else if ((spaces[1][0] === spaces[1][1]) && (spaces[1][0] === spaces[1][2])) {
+            } else if (spaces[1][0] != '-' && ((spaces[1][0] === spaces[1][1]) && (spaces[1][0] === spaces[1][2]))) {
                 if (spaces[1][0] === "X") {
                     return "X";
                 } else if (spaces[1][0] === "O") {
                     return "O";
                 }
-            } else if ((spaces[2][0] === spaces[2][1]) && (spaces[2][0] === spaces[2][2])) {
+            } else if (spaces[2][0] != '-' && ((spaces[2][0] === spaces[2][1]) && (spaces[2][0] === spaces[2][2]))) {
                 if (spaces[2][0] === "X") {
                     return "X";
                 } else if (spaces[2][0] === "O") {
                     return "O";
                 }
-            } else if ((spaces[0][0] === spaces[1][0]) && (spaces[0][0] === spaces[2][0])) {
+            } else if (spaces[0][0] != '-' && ((spaces[0][0] === spaces[1][0]) && (spaces[0][0] === spaces[2][0]))) {
                 if (spaces[0][0] === "X") {
                     return "X";
                 } else if (spaces[0][0] === "O") {
                     return "O";
                 }
-            } else if ((spaces[0][1] === spaces[1][1]) && (spaces[0][1] === spaces[2][1])) {
+            } else if (spaces[0][1] != '-' && ((spaces[0][1] === spaces[1][1]) && (spaces[0][1] === spaces[2][1]))) {
+                    console.log("win");
                 if (spaces[0][1] === "X") {
                     return "X";
                 } else if (spaces[0][1] === "O") {
                     return "O";
                 }
-            } else if ((spaces[0][0] === spaces[1][1]) && (spaces[0][0] === spaces[2][2])) {
+            } else if (spaces[0][0] != '-' && ((spaces[0][0] === spaces[1][1]) && (spaces[0][0] === spaces[2][2]))) {
                 if (spaces[0][0] === "X") {
                     return "X";
                 } else if (spaces[0][0] === "O") {
                     return "O";
                 }
-            } else if ((spaces[0][2] === spaces[1][1]) && (spaces[0][2] === spaces[2][0])) {
+            } else if (spaces[0][2] != '-' && ((spaces[0][2] === spaces[1][1]) && (spaces[0][2] === spaces[2][0]))) {
                 if (spaces[0][2] === "X") {
                     return "X";
                 } else if (spaces[0][2] === "O") {
@@ -130,7 +130,9 @@ TicTacToe.GameController = function () {
                 } else {
                     _currentPlayer = (_currentPlayer == _playerX) ? _playerO : _playerX;
                 }
+                return true;
             }
+            return false;
         },
         isGameOver: function () {
             return TicTacToe.GameBoard.isGameOver();
@@ -139,12 +141,19 @@ TicTacToe.GameController = function () {
             return TicTacToe.GameBoard.isTie();
         },
         winner: function () {
-            return TicTacToe.GameBoard.winner();
+            if (TicTacToe.GameBoard.winner()) {
+                return TicTacToe.GameBoard.winner() == 'X' ? _playerX : _playerO;
+            } else {
+                return undefined;
+            }
         },
     }
 }();
 
 TicTacToe.DisplayController = function () {
+
+    const player1 = TicTacToe.createPlayer("Player 1");
+    const player2 = TicTacToe.createPlayer("Player 2");
 
     return {
         generateBoard: function () {
@@ -157,46 +166,54 @@ TicTacToe.DisplayController = function () {
             }
             document.getElementById("gridMain").innerHTML = html;
             document.querySelectorAll('#gridMain > section').forEach((el) => {
-                el.addEventListener('click', function() {
+                el.addEventListener('click', function () {
                     console.log(this);
-                    TicTacToe.GameController.takeTurn(this.getAttribute('data-row'), this.getAttribute('data-col'));
+                    if (TicTacToe.GameController.takeTurn(this.getAttribute('data-row'), this.getAttribute('data-col'))) {
+                        TicTacToe.DisplayController.displayTurn();
+                        console.log(player1);
+                        if (TicTacToe.GameController.isGameOver() === true) {
+                            TicTacToe.DisplayController.displayWinState();
+                        }
+                    } else {
+                        TicTacToe.DisplayController.displayIllegalMove();
+                    }
                     TicTacToe.DisplayController.generateBoard();
-                    TicTacToe.DisplayController.displayTurn();
                 });
-            }) 
+            })
             console.log(html);
         },
         displayTurn: function () {
             let statusText = document.getElementById("gameStatus");
             statusText.textContent = TicTacToe.GameController.whoseTurn().name + '\'s turn';
         },
+        displayIllegalMove: function () {
+            let statusError = document.getElementById("gameStatus");
+            statusError.textContent = 'Illegal move: that move is not allowed';
+        },
         displayWinState: function () {
-
-        },
-        playAgainHandler: function () {
-
-        },
-        spaceClickHandler: function () {
-
+            this.showEndPopUp();
+            endMenu = document.getElementById("endGame");
+            const plAgbtn = document.getElementById('playAgain');
+            plAgbtn.addEventListener('click', () => {
+                this.hideEndPopUp();
+                TicTacToe.DisplayController.pageLoadHandler();
+            });
         },
         pageLoadHandler: function () {
             this.showPopUp();
+            this.hideEndPopUp();
 
             const btnX = document.getElementById('X');
             btnX.addEventListener('click', () => {
                 this.hidePopUp();
-                const player1 = TicTacToe.createPlayer("Player 1");
-                const player2 = TicTacToe.createPlayer("Player 2");
                 TicTacToe.GameController.newGame(player1, player2);
                 this.generateBoard();
                 this.displayTurn();
             });
-            
+
             const btnO = document.getElementById('O');
             btnO.addEventListener('click', () => {
                 this.hidePopUp();
-                const player1 = TicTacToe.createPlayer("Player 1");
-                const player2 = TicTacToe.createPlayer("Player 2");
                 TicTacToe.GameController.newGame(player2, player1);
                 this.generateBoard();
                 this.displayTurn();
@@ -209,10 +226,23 @@ TicTacToe.DisplayController = function () {
         hidePopUp: function () {
             startMenu = document.getElementById("cont");
             startMenu.style.display = 'none';
+        },
+        showEndPopUp: function () {
+            endMenu = document.getElementById("endGame");
+            endMenu.style.display = 'block';
+            againText = document.getElementById("againText");
+            if (TicTacToe.GameController.winner()) {
+            againText.textContent = TicTacToe.GameController.winner().name + ' wins!';
+            } else
+            {againText.textContent = 'Tie!';
+        };
+        },
+        hideEndPopUp: function () {
+            endMenu = document.getElementById("endGame");
+            endMenu.style.display = 'none';
         }
     };
 }();
 
 window.addEventListener('load', () => TicTacToe.DisplayController.pageLoadHandler());
 
-//div.textContent = 'Wins!'  and play again button                            
