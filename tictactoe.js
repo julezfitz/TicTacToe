@@ -67,6 +67,12 @@ TicTacToe.GameBoard = function (logger) {
                 } else if (spaces[0][2] === "O") {
                     return "O";
                 }
+            } else if (spaces[0][2] != '-' && ((spaces[0][2] === spaces[1][2]) && (spaces[0][2] === spaces[2][2]))) {
+                if (spaces[0][2] === "X") {
+                    return "X";
+                } else if (spaces[0][2] === "O") {
+                    return "O";
+                }
             }
             return undefined;
         },
