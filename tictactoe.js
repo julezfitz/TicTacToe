@@ -120,6 +120,7 @@ TicTacToe.GameController = function () {
             TicTacToe.GameBoard.resetBoard();
             _currentPlayer = _playerX = playerX;
             _playerO = playerO;
+            console.log(_playerX);
         },
         whoseTurn: function () {
             return _currentPlayer;
@@ -158,8 +159,8 @@ TicTacToe.GameController = function () {
 
 TicTacToe.DisplayController = function () {
 
-    const player1 = TicTacToe.createPlayer("Player 1");
-    const player2 = TicTacToe.createPlayer("Player 2");
+    let player1;
+    let player2;
 
     return {
         generateBoard: function () {
@@ -206,7 +207,13 @@ TicTacToe.DisplayController = function () {
             });
         },
         pageLoadHandler: function () {
-            this.showPopUp();
+            if(player1 === undefined) {
+                this.showCreatePlayers();
+                this.createPlayers();
+                this.hidePopUp();
+            } else {
+                this.showPopUp();
+            }
             this.hideEndPopUp();
 
             const btnX = document.getElementById('X');
@@ -228,6 +235,7 @@ TicTacToe.DisplayController = function () {
         showPopUp: function () {
             startMenu = document.getElementById("cont");
             startMenu.style.display = 'block';
+            document.getElementById("chooseMarkText").innerHTML = player1.name + ", please choose your mark:";
         },
         hidePopUp: function () {
             startMenu = document.getElementById("cont");
@@ -249,9 +257,33 @@ TicTacToe.DisplayController = function () {
         hideEndPopUp: function () {
             endMenu = document.getElementById("endGame");
             endMenu.style.display = 'none';
+        },
+        createPlayers: function() {
+            const nameInputPlayer1 = document.getElementById("nameInputPlayer1");
+            const nameInputPlayer2 = document.getElementById("nameInputPlayer2");
+            
+            let playersButton = document.getElementById("submit");
+
+            playersButton.addEventListener("click", function() {
+                player1 = TicTacToe.createPlayer(nameInputPlayer1.value);
+                player2 = TicTacToe.createPlayer(nameInputPlayer2.value);
+                TicTacToe.DisplayController.showPopUp();
+                TicTacToe.DisplayController.hideCreatePlayers();
+                console.log(nameInputPlayer1);
+              });
+            
+        },
+        showCreatePlayers: function() {
+            startMenu = document.getElementById("setPlayerNames");
+            startMenu.style.display = 'block';
+        },
+        hideCreatePlayers: function() {
+            startMenu = document.getElementById("setPlayerNames");
+            startMenu.style.display = 'none';
         }
     };
 }();
 
 window.addEventListener('load', () => TicTacToe.DisplayController.pageLoadHandler());
+
 

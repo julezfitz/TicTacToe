@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>Tic Tac Toe</title>
-    <script src = "tictactoe.js"></script>
+    <script src="tictactoe.js"></script>
     <style>
         .gameWrap {
             border: 2px solid black;
@@ -51,13 +51,13 @@
             background-image: url("https://i0.wp.com/chalkdustmagazine.com/wp-content/uploads/2018/10/tictac_header-e1539701508589.jpg?resize=670%2C300&ssl=1");
         }
 
-        text {
-            color: rgb(253, 253, 252);
-            font-family: "Roboto", Arial, sans-serif;
+        .headerCustom {
             font-weight: bold;
-            font-size: 50px;
             text-shadow: 1px 1px 1px #333;
+            font-size: 50px;
+            color: rgb(253, 253, 252);
             letter-spacing: .01em;
+            font-family: "Roboto", Arial, sans-serif;
         }
 
         .startGame {
@@ -102,26 +102,48 @@
             height: 10px;
             bottom: 0px;
             position: absolute;
+            font-family: Arial, Helvetica, sans-serif;
         }
 
+        .inputMenuTxt {
+            font-size: 14px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: black;
+            font-weight:lighter;
+        }
     </style>
 </head>
 
-<body>    
+<body>
     <div class=gameWrap>
         <div class=divHeader>
-            <text>Tic Tac Toe</text>
-            <div class = "status" id = "gameStatus"></div>
+            <text class = "headerCustom">Tic Tac Toe</text>
+            <div class="status" id="gameStatus"></div>
         </div>
 
-        <div class="grid" id = "gridMain">
+        <div class="grid" id="gridMain">
         </div>
     </div>
 
-      <div class="popup" style="border:solid 1px #ddd; padding:10px; display:block;" id="cont">
+    <div class="popup" style="border:solid 1px #ddd; padding:10px; display:block;" id="setPlayerNames">
+        <div class="popupText" id="startText">
+            <text class = "inputMenuTxt">Player 1, please enter your name: </text>
+            <input type="text" placeholder="Player 1" id="nameInputPlayer1">
+            <br>
+            <br>
+            <text class = "inputMenuTxt">Player 2, please enter your name: </text>
+            <input type="text" placeholder="Player 2" id="nameInputPlayer2">
+            <br>
+            <br>
+            <button id="submit">Submit</button>
+        </div>
+    </div>
+
+
+    <div class="popup" style="border:solid 1px #ddd; padding:10px; display:block;" id="cont">
         <div class="popupText">
-            <label class = "startGame">Player One, please choose your mark:</label>
-            <div class = "buttonDiv">
+            <label class="startGame" id = chooseMarkText></label>
+            <div class="buttonDiv">
                 <button id="X">X</button>
                 <button id="O">O</button>
             </div>
@@ -131,9 +153,9 @@
 
     <div class="popup" style="border:solid 1px #ddd; padding:10px; display:block;" id="endGame">
         <div class="popupText">
-            <label class = "startGame" id = "againText"></label>
-            <div class = "buttonDiv">
-                <button id="playAgain" class = "again">Play Again</button>
+            <label class="startGame" id="againText"></label>
+            <div class="buttonDiv">
+                <button id="playAgain" class="again">Play Again</button>
             </div>
         </div>
     </div>
