@@ -64,23 +64,27 @@
             font-family: Helvetica, sans-serif;
             font-weight: lighter;
             font-size: 1em;
-            align-content: center;
+            justify-content: center;
+            display: flex;
         }
 
         button {
             width: 60px;
-            height: 30px;
+            height: 40px;
             box-shadow: #333;
-            margin-left: 2%;
+            bottom: 0;
+            margin-left: 5%;
         }
 
-        .again {
-            width: 80px;
-            margin-left: 20%;
+        .wide {
+            width: 90px;
+            height: 40px;
         }
 
         .buttonDiv {
-            margin-left: 4em;
+            justify-content: center;
+            display: flex;
+            align-items: center;
         }
 
         .popup {
@@ -109,7 +113,7 @@
             font-size: 14px;
             font-family: Arial, Helvetica, sans-serif;
             color: black;
-            font-weight:lighter;
+            font-weight: lighter;
         }
     </style>
 </head>
@@ -117,7 +121,7 @@
 <body>
     <div class=gameWrap>
         <div class=divHeader>
-            <text class = "headerCustom">Tic Tac Toe</text>
+            <text class="headerCustom">Tic Tac Toe</text>
             <div class="status" id="gameStatus"></div>
         </div>
 
@@ -127,22 +131,24 @@
 
     <div class="popup" style="border:solid 1px #ddd; padding:10px; display:block;" id="setPlayerNames">
         <div class="popupText" id="startText">
-            <text class = "inputMenuTxt">Player 1, please enter your name: </text>
+            <text class="inputMenuTxt">Player 1, please enter your name: </text>
             <input type="text" placeholder="Player 1" id="nameInputPlayer1">
             <br>
             <br>
-            <text class = "inputMenuTxt">Player 2, please enter your name: </text>
+            <text class="inputMenuTxt">Player 2, please enter your name: </text>
             <input type="text" placeholder="Player 2" id="nameInputPlayer2">
             <br>
-            <br>
-            <button id="submit">Submit</button>
+            <div class="buttonDiv">
+                <button id="submit" class="wide">Two Player Game</button>
+                <button id="soloGame" class="wide">Solo Game</button>
+            </div>
         </div>
     </div>
 
 
     <div class="popup" style="border:solid 1px #ddd; padding:10px; display:block;" id="cont">
         <div class="popupText">
-            <label class="startGame" id = chooseMarkText></label>
+            <label class="startGame" id=chooseMarkText></label>
             <div class="buttonDiv">
                 <button id="X">X</button>
                 <button id="O">O</button>
@@ -155,7 +161,7 @@
         <div class="popupText">
             <label class="startGame" id="againText"></label>
             <div class="buttonDiv">
-                <button id="playAgain" class="again">Play Again</button>
+                <button id="playAgain" class="wide">Play Again</button>
             </div>
         </div>
     </div>
