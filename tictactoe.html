@@ -96,7 +96,18 @@
             transition: all 5s ease-in-out;
             z-index: 1;
             top: 10em;
-            left: 10em;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .outerContainer {
+            align-items: center;
+            width: 670px;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         .status {
@@ -129,39 +140,41 @@
         </div>
     </div>
 
-    <div class="popup" style="border:solid 1px #ddd; padding:10px; display:block;" id="setPlayerNames">
-        <div class="popupText" id="startText">
-            <text class="inputMenuTxt">Player 1, please enter your name: </text>
-            <input type="text" placeholder="Player 1" id="nameInputPlayer1">
-            <br>
-            <br>
-            <text class="inputMenuTxt">Player 2, please enter your name: </text>
-            <input type="text" placeholder="Player 2" id="nameInputPlayer2">
-            <br>
-            <div class="buttonDiv">
-                <button id="submit" class="wide">Two Player Game</button>
-                <button id="soloGame" class="wide">Solo Game</button>
+    <div class="outerContainer">
+        <div class="popup" style="border:solid 1px #ddd; padding:10px; display:block;" id="setPlayerNames">
+            <div class="popupText" id="startText">
+                <text class="inputMenuTxt">Player 1, please enter your name: </text>
+                <input type="text" placeholder="Player 1" id="nameInputPlayer1">
+                <br>
+                <br>
+                <text class="inputMenuTxt">Player 2, please enter your name: </text>
+                <input type="text" placeholder="Player 2" id="nameInputPlayer2">
+                <br>
+                <div class="buttonDiv">
+                    <button id="submit" class="wide">Two Player Game</button>
+                    <button id="soloGame" class="wide">Solo Game</button>
+                </div>
             </div>
         </div>
-    </div>
 
 
-    <div class="popup" style="border:solid 1px #ddd; padding:10px; display:block;" id="cont">
-        <div class="popupText">
-            <label class="startGame" id=chooseMarkText></label>
-            <div class="buttonDiv">
-                <button id="X">X</button>
-                <button id="O">O</button>
+        <div class="popup" style="border:solid 1px #ddd; padding:10px; display:block;" id="cont">
+            <div class="popupText">
+                <label class="startGame" id=chooseMarkText></label>
+                <div class="buttonDiv">
+                    <button id="X">X</button>
+                    <button id="O">O</button>
+                </div>
             </div>
         </div>
-    </div>
 
 
-    <div class="popup" style="border:solid 1px #ddd; padding:10px; display:block;" id="endGame">
-        <div class="popupText">
-            <label class="startGame" id="againText"></label>
-            <div class="buttonDiv">
-                <button id="playAgain" class="wide">Play Again</button>
+        <div class="popup" style="border:solid 1px #ddd; padding:10px; display:block;" id="endGame">
+            <div class="popupText">
+                <label class="startGame" id="againText"></label>
+                <div class="buttonDiv">
+                    <button id="playAgain" class="wide">Play Again</button>
+                </div>
             </div>
         </div>
     </div>
